@@ -17,7 +17,7 @@ OVERLAY_DATA_PATH=$(pwd)/../../data dotnet run
 ```
 
 ## Populate data
-Run the importer from the sibling `pokemon-importer` repo:
+Run the importer from the sibling `pokemon-importer` repo (from repo root):
 ```bash
 cd ../pokemon-importer/src/PokemonImporter
 dotnet run                   # full re-import (re-downloads everything)
