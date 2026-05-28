@@ -1,0 +1,92 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: transparent;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 13px;
+  color: #fff;
+}
+
+#overlay {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 8px;
+}
+
+.slot-wrap { display: flex; flex-direction: column; align-items: center; }
+
+.slot-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+
+.card {
+  background: rgba(20, 20, 40, 0.85);
+  border-radius: 10px;
+  padding: 10px;
+  width: 200px;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.empty { opacity: 0.3; margin: auto; font-size: 18px; }
+
+.sprite {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.pokemon-name { font-size: 16px; font-weight: bold; }
+
+.type-pills { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+
+.type-pill {
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+
+.nature-row { font-size: 11px; opacity: 0.85; }
+.nature-boost  { color: #66bb6a; font-weight: bold; }
+.nature-hinder { color: #ef5350; font-weight: bold; }
+
+.stat-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 4px; }
+.stat-table th, .stat-table td { padding: 2px 4px; text-align: center; }
+.stat-table th { opacity: 0.6; font-weight: normal; }
+.stat-table td:first-child { text-align: left; opacity: 0.8; }
+
+.stat-table tr.boosted  td { background: rgba(102,187,106,0.25); color: #a5d6a7; }
+.stat-table tr.hindered td { background: rgba(239, 83, 80,0.25); color: #ef9a9a; }
+
+#vs {
+  font-size: 28px;
+  font-weight: 900;
+  align-self: center;
+  opacity: 0.6;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+.pokeball {
+  width: 60px;
+  height: 60px;
+  margin: auto;
+  display: block;
+}
+.spinning .pokeball { animation: spin 0.4s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.fading-in { animation: fadeIn 0.25s ease-in; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
