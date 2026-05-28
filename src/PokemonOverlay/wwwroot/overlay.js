@@ -32,7 +32,7 @@ function renderCard(payload) {
 
   const types = [pokemon.primaryType, pokemon.secondaryType].filter(Boolean);
   const typePills = types.map(t =>
-    `<img class="type-badge" src="/data/types/type_${t}_square.png" alt="${t}">`
+    `<img class="type-badge" height="20" src="/data/types/type_${t}_square.png" alt="${t}">`
   ).join('');
 
   const natureRow = nature.increasedStat
