@@ -55,3 +55,6 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+
+# Importer-generated data (run the importer to populate)
+src/PokemonOverlay/wwwroot/data/

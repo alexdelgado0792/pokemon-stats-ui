@@ -1,1 +1,0 @@
-[{"id":6,"name":"charizard","displayName":"Charizard","primaryType":"fire","secondaryType":"flying","stats":{"hp":{"baseStat":78,"min":138,"base":153,"max":185},"speed":{"baseStat":100,"min":94,"base":120,"max":167}},"sprites":{"official-artwork":"pokemon/official-artwork/charizard.png"},"isLegendary":false,"isMythical":false}]
