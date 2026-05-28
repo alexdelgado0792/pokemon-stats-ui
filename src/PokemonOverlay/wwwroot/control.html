@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pokémon Control</title>
+  <link rel="stylesheet" href="/control.css">
+</head>
+<body>
+  <div id="app">
+    <div class="panel" data-slot="left">
+      <h2>Left Slot <span class="indicator" id="ind-left"></span></h2>
+      <label>Sprite variant
+        <select class="variant-select">
+          <option value="official-artwork">Official Artwork</option>
+          <option value="home">Home</option>
+          <option value="default">Default</option>
+        </select>
+      </label>
+      <input type="search" class="search-input" placeholder="Search Pokémon…">
+      <ul class="results-list"></ul>
+      <label>Nature
+        <select class="nature-select"></select>
+      </label>
+      <div class="actions">
+        <button class="btn-show" disabled>Show</button>
+        <button class="btn-clear">Clear</button>
+      </div>
+    </div>
+
+    <div class="panel" data-slot="right">
+      <h2>Right Slot <span class="indicator" id="ind-right"></span></h2>
+      <label>Sprite variant
+        <select class="variant-select">
+          <option value="official-artwork">Official Artwork</option>
+          <option value="home">Home</option>
+          <option value="default">Default</option>
+        </select>
+      </label>
+      <input type="search" class="search-input" placeholder="Search Pokémon…">
+      <ul class="results-list"></ul>
+      <label>Nature
+        <select class="nature-select"></select>
+      </label>
+      <div class="actions">
+        <button class="btn-show" disabled>Show</button>
+        <button class="btn-clear">Clear</button>
+      </div>
+    </div>
+  </div>
+  <script src="/control.js"></script>
+</body>
+</html>
