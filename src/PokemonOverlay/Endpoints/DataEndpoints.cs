@@ -11,7 +11,7 @@ public static class DataEndpoints
         {
             if (string.IsNullOrWhiteSpace(q))
                 return Results.Ok(Array.Empty<object>());
-            return Results.Ok(data.Search(q, limit));
+            return Results.Ok(data.Search(q, Math.Clamp(limit, 1, 50)));
         });
 
         app.MapGet("/api/pokemon/{name}", (string name, DataService data) =>
