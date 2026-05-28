@@ -16,6 +16,14 @@ cd src/PokemonOverlay
 OVERLAY_DATA_PATH=$(pwd)/../../data dotnet run
 ```
 
+## Populate data
+Run the importer from the sibling `pokemon-importer` repo:
+```bash
+cd ../pokemon-importer/src/PokemonImporter
+dotnet run                   # full re-import (re-downloads everything)
+dotnet run -- --incremental  # incremental (use CSV cache, skip existing sprites)
+```
+
 ## URLs
 - Control UI (second monitor): http://localhost:5000/control
 - OBS Browser Source:          http://localhost:5000/overlay
