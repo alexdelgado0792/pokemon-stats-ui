@@ -37,6 +37,8 @@ function initPanel(panel) {
   loadNatures(natureEl);
 
   const doSearch = debounce(async (q) => {
+    selectedPokemon = null;
+    btnShow.disabled = true;
     if (!q.trim()) { results.innerHTML = ''; return; }
     const res  = await fetch(`/api/pokemon/search?q=${encodeURIComponent(q)}&limit=8`);
     const list = await res.json();
