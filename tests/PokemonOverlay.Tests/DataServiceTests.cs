@@ -131,4 +131,20 @@ public class DataServiceTests
         var svc = MakeService();
         Assert.Equal(3, svc.GetNatures().Count);
     }
+
+    [Fact]
+    public void GetItems_ReturnsAll()
+    {
+        // MakeService uses empty items list, so we test with a non-empty one
+        var svc = new DataService(
+            new List<PokemonData>(),
+            new List<NatureData>(),
+            new List<ItemData>
+            {
+                new("leftovers", "Leftovers", "items/leftovers.png"),
+                new("life-orb",  "Life Orb",  "items/life-orb.png"),
+            }
+        );
+        Assert.Equal(2, svc.GetItems().Count);
+    }
 }

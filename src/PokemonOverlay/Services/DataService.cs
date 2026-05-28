@@ -46,7 +46,7 @@ public class DataService
     {
         var lower = q.ToLowerInvariant();
         return _pokemon
-            .Where(p => p.Name.Contains(lower, StringComparison.Ordinal)
+            .Where(p => p.Name.Contains(lower, StringComparison.OrdinalIgnoreCase)
                      || p.DisplayName.Contains(lower, StringComparison.OrdinalIgnoreCase))
             .Select(p => (p, Score(p, lower)))
             .OrderByDescending(x => x.Item2)
