@@ -1,11 +1,3 @@
-const TYPE_COLORS = {
-  normal:'#A8A878',fire:'#F08030',water:'#6890F0',electric:'#F8D030',
-  grass:'#78C850',ice:'#98D8D8',fighting:'#C03028',poison:'#A040A0',
-  ground:'#E0C068',flying:'#A890F0',psychic:'#F85888',bug:'#A8B820',
-  rock:'#B8A038',ghost:'#705898',dragon:'#7038F8',dark:'#705848',
-  steel:'#B8B8D0',fairy:'#EE99AC',
-};
-
 // Maps PokeAPI stat identifiers (used in NatureData) to PokemonData.stats dict keys
 const NATURE_TO_STAT_KEY = {
   'hp':'hp','attack':'attack','defense':'defense',
@@ -40,7 +32,7 @@ function renderCard(payload) {
 
   const types = [pokemon.primaryType, pokemon.secondaryType].filter(Boolean);
   const typePills = types.map(t =>
-    `<span class="type-pill" style="background:${TYPE_COLORS[t] ?? '#888'}">${t}</span>`
+    `<img class="type-badge" src="/data/types/type_${t}_square.png" alt="${t}">`
   ).join('');
 
   const natureRow = nature.increasedStat
