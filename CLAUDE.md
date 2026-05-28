@@ -6,10 +6,10 @@ plus a second-monitor control UI. Reads JSON data produced by PokemonDataImporte
 
 ## Run commands
 ```bash
-# Docker (from repo root) — normal workflow
-docker compose up -d pokemon-overlay
-docker compose logs -f pokemon-overlay
-docker compose restart pokemon-overlay
+# Docker — not yet implemented (Dockerfile and docker-compose.yml pending)
+# docker compose up -d pokemon-overlay
+# docker compose logs -f pokemon-overlay
+# docker compose restart pokemon-overlay
 
 # Native dev
 cd src/PokemonOverlay

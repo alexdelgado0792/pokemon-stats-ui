@@ -29,6 +29,8 @@ const POKEBALL_SVG = `
   <circle cx="22" cy="22" r="5" fill="white" stroke="#333" stroke-width="2"/>
 </svg>`;
 
+const pendingAnimations = { left: null, right: null };
+
 function renderCard(payload) {
   if (!payload) return '<div class="empty">—</div>';
   const { pokemon, nature, spritePath } = payload;
@@ -67,10 +69,17 @@ function renderCard(payload) {
 
 function animateSlot(slotId, payload) {
   const card = document.getElementById(slotId === 'left' ? 'card-left' : 'card-right');
+
+  if (pendingAnimations[slotId]) {
+    clearTimeout(pendingAnimations[slotId]);
+    pendingAnimations[slotId] = null;
+  }
+
   card.classList.add('spinning');
   card.innerHTML = POKEBALL_SVG;
 
-  setTimeout(() => {
+  pendingAnimations[slotId] = setTimeout(() => {
+    pendingAnimations[slotId] = null;
     card.classList.remove('spinning');
     card.classList.add('fading-in');
     card.innerHTML = renderCard(payload);

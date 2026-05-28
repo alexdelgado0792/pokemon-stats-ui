@@ -50,7 +50,7 @@ public static class OverlayEndpoints
                 return;
             }
             var ws = await ctx.WebSockets.AcceptWebSocketAsync();
-            await state.HandleWebSocketAsync(ws);
+            await state.HandleWebSocketAsync(ws, ctx.RequestAborted);
         });
     }
 }

@@ -47,22 +47,22 @@ public class OverlayStateService
         lock (_lock) return new SlotSnapshot(_left, _right);
     }
 
-    public async Task HandleWebSocketAsync(WebSocket ws)
+    public async Task HandleWebSocketAsync(WebSocket ws, CancellationToken cancellationToken = default)
     {
         var id = Guid.NewGuid();
-        _clients[id] = ws;
         try
         {
             // Send current state immediately on connect so OBS restores after source reload
             await SendAsync(ws, new { type = "snapshot", snapshot = GetSnapshot() });
+            _clients[id] = ws;
 
             // Read loop — overlay clients never send data; we just detect disconnect
             var buffer = new byte[128];
-            var result = await ws.ReceiveAsync(buffer, CancellationToken.None);
+            var result = await ws.ReceiveAsync(buffer, cancellationToken);
             while (result.MessageType != WebSocketMessageType.Close
                    && ws.State == WebSocketState.Open)
             {
-                result = await ws.ReceiveAsync(buffer, CancellationToken.None);
+                result = await ws.ReceiveAsync(buffer, cancellationToken);
             }
             if (ws.State == WebSocketState.CloseReceived)
                 await ws.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
@@ -75,8 +75,10 @@ public class OverlayStateService
 
     private async Task BroadcastAsync(object message)
     {
-        var bytes   = Encode(message);
+        var bytes  = Encode(message);
         var segment = new ArraySegment<byte>(bytes);
+        var tasks  = new List<Task>();
+
         foreach (var (id, client) in _clients)
         {
             if (client.State != WebSocketState.Open)
@@ -84,14 +86,23 @@ public class OverlayStateService
                 _clients.TryRemove(id, out _);
                 continue;
             }
-            try
-            {
-                await client.SendAsync(segment, WebSocketMessageType.Text, true, CancellationToken.None);
-            }
-            catch
-            {
-                _clients.TryRemove(id, out _);
-            }
+            tasks.Add(SendToClientAsync(id, client, segment));
+        }
+
+        if (tasks.Count > 0)
+            await Task.WhenAll(tasks);
+    }
+
+    private async Task SendToClientAsync(Guid id, WebSocket client, ArraySegment<byte> segment)
+    {
+        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
+        try
+        {
+            await client.SendAsync(segment, WebSocketMessageType.Text, true, cts.Token);
+        }
+        catch
+        {
+            _clients.TryRemove(id, out _);
         }
     }
 
