@@ -1,6 +1,6 @@
 # PokemonStatsUI Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
 **Goal:** Build an ASP.NET Core .NET 10 minimal API that serves a live Pokémon VGC stat overlay for OBS and a second-monitor control panel, with real-time slot updates pushed over WebSocket.
 
@@ -39,7 +39,7 @@
 - Create: `src/PokemonOverlay/PokemonOverlay.csproj`
 - Create: `tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj`
 
-- [ ] **Step 1: Create the main project file**
+- [x] **Step 1: Create the main project file**
 
 ```xml
 <!-- src/PokemonOverlay/PokemonOverlay.csproj -->
@@ -53,7 +53,7 @@
 </Project>
 ```
 
-- [ ] **Step 2: Create a minimal Program.cs so the project compiles**
+- [x] **Step 2: Create a minimal Program.cs so the project compiles**
 
 ```csharp
 // src/PokemonOverlay/Program.cs
@@ -62,7 +62,7 @@ var app = builder.Build();
 app.Run();
 ```
 
-- [ ] **Step 3: Create the test project file**
+- [x] **Step 3: Create the test project file**
 
 ```xml
 <!-- tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj -->
@@ -84,7 +84,7 @@ app.Run();
 </Project>
 ```
 
-- [ ] **Step 4: Build both projects**
+- [x] **Step 4: Build both projects**
 
 ```
 dotnet build src/PokemonOverlay/PokemonOverlay.csproj
@@ -93,7 +93,7 @@ dotnet build tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj
 
 Expected: 0 errors each.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add CLAUDE.md src/PokemonOverlay/ tests/PokemonOverlay.Tests/ docs/
@@ -110,7 +110,7 @@ git commit -m "chore: scaffold ASP.NET Core project and test project"
 
 These records mirror the JSON shapes produced by the importer. No tests — pure data containers.
 
-- [ ] **Step 1: Create Models/PokemonData.cs**
+- [x] **Step 1: Create Models/PokemonData.cs**
 
 ```csharp
 // src/PokemonOverlay/Models/PokemonData.cs
@@ -144,7 +144,7 @@ public record ItemData(
 );
 ```
 
-- [ ] **Step 2: Create Models/OverlayMessages.cs**
+- [x] **Step 2: Create Models/OverlayMessages.cs**
 
 ```csharp
 // src/PokemonOverlay/Models/OverlayMessages.cs
@@ -166,7 +166,7 @@ public record SlotPayload(
 public record SlotSnapshot(SlotPayload? Left, SlotPayload? Right);
 ```
 
-- [ ] **Step 3: Build to verify**
+- [x] **Step 3: Build to verify**
 
 ```
 dotnet build src/PokemonOverlay/PokemonOverlay.csproj
@@ -174,7 +174,7 @@ dotnet build src/PokemonOverlay/PokemonOverlay.csproj
 
 Expected: 0 errors.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add src/PokemonOverlay/Models/
@@ -197,7 +197,7 @@ DataService is a singleton that loads all JSON data at startup and exposes searc
 - substring match → 100
 - ties broken by pokemon id (ascending)
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 ```csharp
 // tests/PokemonOverlay.Tests/DataServiceTests.cs
@@ -344,7 +344,7 @@ public class DataServiceTests
 }
 ```
 
-- [ ] **Step 2: Run tests — verify they fail**
+- [x] **Step 2: Run tests — verify they fail**
 
 ```
 dotnet test tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj
@@ -352,7 +352,7 @@ dotnet test tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj
 
 Expected: build error — `DataService` does not exist yet.
 
-- [ ] **Step 3: Create Services/DataService.cs**
+- [x] **Step 3: Create Services/DataService.cs**
 
 ```csharp
 // src/PokemonOverlay/Services/DataService.cs
@@ -439,7 +439,7 @@ public class DataService
 }
 ```
 
-- [ ] **Step 4: Run tests — verify they pass**
+- [x] **Step 4: Run tests — verify they pass**
 
 ```
 dotnet test tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj
@@ -447,7 +447,7 @@ dotnet test tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj
 
 Expected: 14 tests pass, 0 fail.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/PokemonOverlay/Services/DataService.cs tests/PokemonOverlay.Tests/DataServiceTests.cs
@@ -464,7 +464,7 @@ git commit -m "feat: add DataService with search scoring and TDD tests"
 
 OverlayStateService holds the two slot states (left/right), manages WebSocket client connections, and broadcasts updates. State mutation uses a lock; broadcasts happen outside the lock.
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 ```csharp
 // tests/PokemonOverlay.Tests/OverlayStateServiceTests.cs
@@ -559,7 +559,7 @@ public class OverlayStateServiceTests
 }
 ```
 
-- [ ] **Step 2: Run tests — verify they fail**
+- [x] **Step 2: Run tests — verify they fail**
 
 ```
 dotnet test tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj
@@ -567,7 +567,7 @@ dotnet test tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj
 
 Expected: build error — `OverlayStateService` does not exist yet.
 
-- [ ] **Step 3: Create Services/OverlayStateService.cs**
+- [x] **Step 3: Create Services/OverlayStateService.cs**
 
 ```csharp
 // src/PokemonOverlay/Services/OverlayStateService.cs
@@ -676,7 +676,7 @@ public class OverlayStateService
 }
 ```
 
-- [ ] **Step 4: Run tests — verify they pass**
+- [x] **Step 4: Run tests — verify they pass**
 
 ```
 dotnet test tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj
@@ -684,7 +684,7 @@ dotnet test tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj
 
 Expected: 21 tests pass (14 from Task 3 + 7 new), 0 fail.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add src/PokemonOverlay/Services/OverlayStateService.cs tests/PokemonOverlay.Tests/OverlayStateServiceTests.cs
@@ -702,7 +702,7 @@ git commit -m "feat: add OverlayStateService with slot state, WS client manageme
 
 Wire everything together. After this task the full API is live and testable with curl.
 
-- [ ] **Step 1: Create Endpoints/DataEndpoints.cs**
+- [x] **Step 1: Create Endpoints/DataEndpoints.cs**
 
 ```csharp
 // src/PokemonOverlay/Endpoints/DataEndpoints.cs
@@ -734,7 +734,7 @@ public static class DataEndpoints
 }
 ```
 
-- [ ] **Step 2: Create Endpoints/OverlayEndpoints.cs**
+- [x] **Step 2: Create Endpoints/OverlayEndpoints.cs**
 
 ```csharp
 // src/PokemonOverlay/Endpoints/OverlayEndpoints.cs
@@ -795,7 +795,7 @@ public static class OverlayEndpoints
 }
 ```
 
-- [ ] **Step 3: Replace Program.cs with the full wired-up app**
+- [x] **Step 3: Replace Program.cs with the full wired-up app**
 
 ```csharp
 // src/PokemonOverlay/Program.cs
@@ -842,7 +842,7 @@ app.MapOverlayEndpoints();
 app.Run();
 ```
 
-- [ ] **Step 4: Build**
+- [x] **Step 4: Build**
 
 ```
 dotnet build src/PokemonOverlay/PokemonOverlay.csproj
@@ -850,7 +850,7 @@ dotnet build src/PokemonOverlay/PokemonOverlay.csproj
 
 Expected: 0 errors.
 
-- [ ] **Step 5: Run and smoke-test the API**
+- [x] **Step 5: Run and smoke-test the API**
 
 First, you need JSON data files. The importer (sibling repo) produces them. For a quick smoke test, create a minimal `wwwroot/data/` with small JSON files:
 
@@ -895,7 +895,7 @@ curl -X POST http://localhost:5000/api/overlay/clear \
 
 All 5 commands should return 200 with valid JSON. Stop the server when done.
 
-- [ ] **Step 6: Run all tests**
+- [x] **Step 6: Run all tests**
 
 ```
 dotnet test tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj
@@ -903,7 +903,7 @@ dotnet test tests/PokemonOverlay.Tests/PokemonOverlay.Tests.csproj
 
 Expected: 21 tests pass.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add src/PokemonOverlay/Endpoints/ src/PokemonOverlay/Program.cs
@@ -938,7 +938,7 @@ hp → hp | attack → attack | defense → defense
 special-attack → specialAttack | special-defense → specialDefense | speed → speed
 ```
 
-- [ ] **Step 1: Create wwwroot/overlay.html**
+- [x] **Step 1: Create wwwroot/overlay.html**
 
 ```html
 <!DOCTYPE html>
@@ -965,7 +965,7 @@ special-attack → specialAttack | special-defense → specialDefense | speed �
 </html>
 ```
 
-- [ ] **Step 2: Create wwwroot/overlay.js**
+- [x] **Step 2: Create wwwroot/overlay.js**
 
 ```javascript
 // overlay.js
@@ -1076,7 +1076,7 @@ function connect() {
 connect();
 ```
 
-- [ ] **Step 3: Create wwwroot/overlay.css**
+- [x] **Step 3: Create wwwroot/overlay.css**
 
 ```css
 /* overlay.css */
@@ -1181,7 +1181,7 @@ body {
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 ```
 
-- [ ] **Step 4: Start the server and open the overlay in a browser**
+- [x] **Step 4: Start the server and open the overlay in a browser**
 
 ```bash
 cd src/PokemonOverlay && dotnet run
@@ -1190,7 +1190,7 @@ cd src/PokemonOverlay && dotnet run
 Open http://localhost:5000/overlay in a browser.
 Expected: Two empty slots (showing "—") side-by-side with VS between them.
 
-- [ ] **Step 5: Test a slot update**
+- [x] **Step 5: Test a slot update**
 
 In a second terminal:
 ```bash
@@ -1201,7 +1201,7 @@ curl -X POST http://localhost:5000/api/overlay/set \
 
 Expected in browser: Pokéball spins for ~500ms, then Charizard card fades in with fire/flying type pills, speed row highlighted green, stat table shown.
 
-- [ ] **Step 6: Test slot clear**
+- [x] **Step 6: Test slot clear**
 
 ```bash
 curl -X POST http://localhost:5000/api/overlay/clear \
@@ -1211,12 +1211,12 @@ curl -X POST http://localhost:5000/api/overlay/clear \
 
 Expected: Pokéball spin, then card returns to empty "—" state.
 
-- [ ] **Step 7: Test WebSocket reconnect**
+- [x] **Step 7: Test WebSocket reconnect**
 
 Restart the server while the browser tab is open.
 Expected: Overlay reconnects automatically within ~1.5s and restores state (if any was set before restart, it will be blank — that's correct, in-memory state resets on restart).
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add src/PokemonOverlay/wwwroot/overlay.html src/PokemonOverlay/wwwroot/overlay.js src/PokemonOverlay/wwwroot/overlay.css
@@ -1244,7 +1244,7 @@ Two-panel control interface. Each panel has: sprite variant dropdown, live searc
 
 **Live indicator:** connects to `/ws/overlay` and turns green when the slot's snapshot shows non-null.
 
-- [ ] **Step 1: Create wwwroot/control.html**
+- [x] **Step 1: Create wwwroot/control.html**
 
 ```html
 <!DOCTYPE html>
@@ -1301,7 +1301,7 @@ Two-panel control interface. Each panel has: sprite variant dropdown, live searc
 </html>
 ```
 
-- [ ] **Step 2: Create wwwroot/control.js**
+- [x] **Step 2: Create wwwroot/control.js**
 
 ```javascript
 // control.js
@@ -1426,7 +1426,7 @@ function connectIndicator() {
 connectIndicator();
 ```
 
-- [ ] **Step 3: Create wwwroot/control.css**
+- [x] **Step 3: Create wwwroot/control.css**
 
 ```css
 /* control.css */
@@ -1528,7 +1528,7 @@ button {
 .btn-clear:hover       { background: #616161; }
 ```
 
-- [ ] **Step 4: Start server and test the control UI**
+- [x] **Step 4: Start server and test the control UI**
 
 ```bash
 cd src/PokemonOverlay && dotnet run
@@ -1537,20 +1537,20 @@ cd src/PokemonOverlay && dotnet run
 Open http://localhost:5000/control in a browser.
 
 Test checklist:
-- [ ] Both panels load with nature dropdowns populated (Hardy selected by default)
-- [ ] Nature dropdown shows modifiers: e.g. "Jolly (+Spe / -SpA)"
-- [ ] Typing "char" in left search shows Charmander and Charizard in the results list
-- [ ] Clicking a result selects it (highlighted) and enables the Show button
-- [ ] Clicking Show posts to `/api/overlay/set` (check network tab: 200 response)
-- [ ] Live indicator turns green for the corresponding slot
-- [ ] Opening /overlay simultaneously shows the card appear with the Pokéball animation
-- [ ] Clicking Clear posts to `/api/overlay/clear`; indicator goes grey; overlay card empties
+- [x] Both panels load with nature dropdowns populated (Hardy selected by default)
+- [x] Nature dropdown shows modifiers: e.g. "Jolly (+Spe / -SpA)"
+- [x] Typing "char" in left search shows Charmander and Charizard in the results list
+- [x] Clicking a result selects it (highlighted) and enables the Show button
+- [x] Clicking Show posts to `/api/overlay/set` (check network tab: 200 response)
+- [x] Live indicator turns green for the corresponding slot
+- [x] Opening /overlay simultaneously shows the card appear with the Pokéball animation
+- [x] Clicking Clear posts to `/api/overlay/clear`; indicator goes grey; overlay card empties
 
-- [ ] **Step 5: Test live indicator sync**
+- [x] **Step 5: Test live indicator sync**
 
 Open /overlay and /control side-by-side. Set and clear slots using the control panel and verify the overlay responds in real time.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/PokemonOverlay/wwwroot/control.html src/PokemonOverlay/wwwroot/control.js src/PokemonOverlay/wwwroot/control.css
